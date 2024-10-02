@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use Livewire\Component;
 use App\Models\Product;
 
@@ -11,7 +12,7 @@ class ProductsCategories extends Component
 
     public function mount()
     {
-        $this->categories = Product::distinct()->pluck('category');
+        $this->categories = Category::all();
     }
 
     public function render()

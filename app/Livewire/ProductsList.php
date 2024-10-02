@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Product;
+use App\Models\Category;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -64,7 +65,11 @@ class ProductsList extends Component
         $products = collect();
 
         if ($this->category) {
-            $products = Product::where('category', 'like', "%{$this->category}%")->latest()->paginate(10);
+            // Requête en fonction de category_id
+            $category = Category::where('slug', $this->category)->first();
+            if ($category) {
+                $products = Product::where('category_id', $category->id)->latest()->paginate(10);
+            }
         } else {
             $products = Product::latest()->paginate(10);
         }
