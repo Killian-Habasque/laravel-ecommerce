@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire;
 
 use Livewire\Component;
@@ -8,26 +7,21 @@ use Livewire\Attributes\On;
 
 class Cart extends Component
 {
-
     public function increment($id)
     {
         $cart = session('cart', []);
-
-        $product = Product::find($id);
 
         if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
-                'name' => $product->name,
-                'price' => $product->price,
                 'quantity' => 1,
             ];
         }
+
         session()->put('cart', $cart);
         $this->dispatch('update-list');
     }
-
 
     public function decrement($id)
     {
@@ -38,6 +32,7 @@ class Cart extends Component
         } else {
             unset($cart[$id]);
         }
+
         session()->put('cart', $cart);
         $this->dispatch('update-list');
     }
@@ -46,10 +41,13 @@ class Cart extends Component
     public function render()
     {
         $cart = session('cart', []);
-        $products = Product::whereIn('id', array_keys($cart))->get();
-        $total = collect($cart)->sum(function ($item) {
-            return $item['price'] * $item['quantity'];
+        $productIds = array_keys($cart);
+        $products = Product::whereIn('id', $productIds)->get();
+        
+        $total = $products->sum(function ($product) use ($cart) {
+            return $product->price * $cart[$product->id]['quantity'];
         });
+
         $quantity = collect($cart)->sum('quantity');
 
         return view('livewire.cart', compact('cart', 'products', 'total', 'quantity'));
