@@ -4,12 +4,14 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use App\Models\Category;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ProductsList extends Component
 {
     public $category = '';
+    public $minPrice = 0;
+    public $maxPrice = 10000;
+    public $searchTerm = ''; 
 
     public function mount()
     {
@@ -34,7 +36,6 @@ class ProductsList extends Component
         }
 
         session()->put('cart', $cart);
-
         $this->dispatch('update-cart');
     }
 
@@ -48,30 +49,34 @@ class ProductsList extends Component
             unset($cart[$id]);
         }
         session()->put('cart', $cart);
-
         $this->dispatch('update-cart');
     }
 
-    #[On('changeCategory')]
-    public function changeCategory($category)
+    public function filterProducts()
     {
-        $this->category = $category;
-        $this->dispatch('update-list'); 
+        $this->render();
     }
 
-    #[On('update-list')]
     public function render()
     {
         $products = collect();
-
+     
         if ($this->category) {
-            // Requête en fonction de category_id
             $category = Category::where('slug', $this->category)->first();
             if ($category) {
-                $products = Product::where('category_id', $category->id)->latest()->paginate(10);
+                $products = Product::where('category_id', $category->id)
+                    ->where('price', '>=', $this->minPrice)
+                    ->where('price', '<=', $this->maxPrice)
+                    ->where('name', 'like', '%' . $this->searchTerm . '%')
+                    ->latest()
+                    ->paginate(10);
             }
         } else {
-            $products = Product::latest()->paginate(10);
+            $products = Product::where('price', '>=', $this->minPrice)
+                ->where('price', '<=', $this->maxPrice)
+                ->where('name', 'like', '%' . $this->searchTerm . '%') 
+                ->latest()
+                ->paginate(10);
         }
 
         return view('livewire.products-list', compact('products'));
