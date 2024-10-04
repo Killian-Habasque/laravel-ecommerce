@@ -15,18 +15,18 @@
 
     <ul class="grid grid-cols-4 gap-8">
         @foreach ($products as $product)
-        <li class="flex flex-col justify-between space-y-6 bg-white rounded-lg shadow p-4">
+        <li class="flex flex-col justify-between space-y-6 bg-white rounded-lg shadow p-4 transition-all duration-300 transform hover:scale-105">
             <div class="space-y-2">
                 <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-40 object-cover rounded-lg">
                 <h2 class="text-lg">{{ $product->name }}</h2>
 
                 @if($product->tags->isNotEmpty())
-                    <div class="text-sm text-gray-500">
-                        <span class="font-semibold">Tags :</span>
-                        @foreach($product->tags as $tag)
-                            <span class="bg-gray-200 rounded-full px-2 py-1">{{ $tag->name }}</span>
-                        @endforeach
-                    </div>
+                <div class="text-sm text-gray-500">
+                    <span class="font-semibold">Tags :</span>
+                    @foreach($product->tags as $tag)
+                    <span class="bg-gray-200 rounded-full px-2 py-1">{{ $tag->name }}</span>
+                    @endforeach
+                </div>
                 @endif
             </div>
 
@@ -41,8 +41,10 @@
                 </div>
             </div>
 
-            <a href="{{ route('product', ['slug' => $product->slug]) }}" wire:navigate.hover class="bg-blue-500 text-white rounded ">
-                Voir plus
+            <a href="{{ route('product', ['slug' => $product->slug]) }}"
+                wire:navigate.hover
+                class="bg-blue-500 text-white rounded-lg px-6 py-2  hover:bg-blue-600 hover:shadow-lg ">
+                Show more
             </a>
         </li>
         @endforeach
