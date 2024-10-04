@@ -1,16 +1,57 @@
-## workshop-card-demo
+# Lorem Shop: Laravel Ecommerce
 
-Ce projet TALL contient une simple vue shop.
+## Objectif
 
-Cette vue est votre point de départ, vous devez :
+Ce projet a été développé dans le cadre d'un cours pour s'entraîner à Laravel en utilisant Livewire et Alpine.js. Il vise à créer une plateforme de ecommerce simple et fonctionnelle.
 
-- Créer un composant Livewire capable d'afficher la liste des produits
-- Créer un composant capable de gérer un panier e-commerce
+## Fonctionnalités
 
-Le panier est stocké en session.
+- **Gestion du panier** : Stockage des articles dans la session pour une expérience d'achat fluide.
+- **Gestion des catégories et des tags** : Organisation des produits par catégories et tags pour faciliter la navigation.
+- **Filtrage des prix et recherche** : Permet aux utilisateurs de filtrer les produits selon le prix et de rechercher des articles spécifiques.
+- **Page produit** : Affiche les détails des produits avec une interface conviviale.
+- **Affichage avec Livewire et Blade** : Utilisation de composants Livewire et de Blade pour un rendu dynamique et réactif.
 
-Le 1er composant (liste) affiche la liste de tous les produits. Si un produit est présent dans le panier, vous afficherez la quantité présente dans le panier, sinon vous afficherez une quantité à 0.
+## Pages
 
-Le 2ème composant (panier) affiche seulement les produits présents dans le panier, la quantité pour chaque produit, le prix total et la quantité totale.
+- **Page du Shop**  
+  ![Page du Shop](public/shop.png)
 
-Les interactions sur les boutons -/+ d'un des composants doivent mettre à jour le panier en session, et informer l'autre composant qu'une mise à jour a été faite.
+- **Page Produit**  
+  ![Page Produit](public/product.png)
+
+## Installation
+
+Pour lancer le projet, suivez les étapes ci-dessous :
+
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/Killian-Habasque/laravel-ecommerce.git
+   cd laravel-ecommerce
+
+2. Installez les dépendances avec Composer :
+    ```bash
+    composer install
+
+3. Installez les dépendances front-end avec npm :
+    ```bash
+    npm install
+
+4. Compilez les fichiers CSS et JavaScript :
+    ```bash
+    npm run dev
+
+5. Configurez votre fichier .env :
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+
+6. Exécutez les migrations et les seeders pour peupler la base de données :
+    ```bash
+    php artisan migrate --seed
+
+7. Démarrez le serveur de développement :
+    ```bash
+    php artisan serve
+
+Votre application devrait maintenant être accessible à l'adresse http://localhost:8000.
