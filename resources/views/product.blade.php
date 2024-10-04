@@ -13,25 +13,15 @@
     <!-- Header -->
     <div class="border-b border-slate-200">
         <div class="container mx-auto">
-            <div class="flex justify-between p-4">
+            <div class="flex justify-between py-4">
                 <div>Ma boutique</div>
                 <livewire:cart />
             </div>
         </div>
     </div>
-
-    <div class="flex grow">
-        <nav class="w-64 bg-white border-r border-slate-200">
-            <livewire:products-categories />
-            <livewire:products-tags />
-        </nav>
-        <div class="flex-grow p-4 overflow-y-scroll bg-slate-100">
-            <div class="container mx-auto">
-                <livewire:products-list />
-            </div>
-        </div>
-    </div>
-    @livewireScripts
+    <a href="{{route('shop')}}" wire:navigate.hover class="block py-2 text-gray-600 hover:bg-slate-200">
+        Retour à la boutique
+    </a>
 </body>
 
 </html>

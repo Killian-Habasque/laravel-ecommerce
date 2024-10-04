@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Sushi\Sushi;
 
-class Category extends Model
+class Tag extends Model
 {
     protected $fillable = ['name', 'slug'];
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 }

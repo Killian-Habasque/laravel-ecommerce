@@ -4,14 +4,16 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use App\Models\Category;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ProductsList extends Component
 {
     public $category = '';
     public $minPrice = 0;
-    public $maxPrice = 10000;
+    public $maxPrice = 1000;
     public $searchTerm = ''; 
+    public $selectedTags = [];
 
     public function mount()
     {
@@ -52,6 +54,12 @@ class ProductsList extends Component
         $this->dispatch('update-cart');
     }
 
+    #[On('filter-tags')]
+    public function filterByTags($data)
+    {
+        $this->selectedTags = $data['selectedTags'];
+        $this->filterProducts();
+    }
     public function filterProducts()
     {
         $this->render();
@@ -60,25 +68,27 @@ class ProductsList extends Component
     public function render()
     {
         $products = collect();
-     
+
+        $query = Product::query()
+            ->where('price', '>=', $this->minPrice)
+            ->where('price', '<=', $this->maxPrice)
+            ->where('name', 'like', '%' . $this->searchTerm . '%');
+        
         if ($this->category) {
             $category = Category::where('slug', $this->category)->first();
             if ($category) {
-                $products = Product::where('category_id', $category->id)
-                    ->where('price', '>=', $this->minPrice)
-                    ->where('price', '<=', $this->maxPrice)
-                    ->where('name', 'like', '%' . $this->searchTerm . '%')
-                    ->latest()
-                    ->paginate(10);
+                $query->where('category_id', $category->id);
             }
-        } else {
-            $products = Product::where('price', '>=', $this->minPrice)
-                ->where('price', '<=', $this->maxPrice)
-                ->where('name', 'like', '%' . $this->searchTerm . '%') 
-                ->latest()
-                ->paginate(10);
         }
-
+        
+        if (!empty($this->selectedTags)) {
+            $query->whereHas('tags', function ($q) {
+                $q->whereIn('id', $this->selectedTags);
+            });
+        }
+        
+        $products = $query->latest()->paginate(12);
+        
         return view('livewire.products-list', compact('products'));
     }
 }

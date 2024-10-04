@@ -7,37 +7,19 @@ use Sushi\Sushi;
 
 class Product extends Model
 {
-    use Sushi;
+    protected $fillable = ['name', 'slug', 'price', 'image', 'category_id'];
 
-    protected $rows = [
-        [
-            'id' => 1,
-            'name' => 'Iphone 16',
-            'price' => 799,
-            'category_id' => 1, 
-        ],
-        [
-            'id' => 2,
-            'name' => 'Iphone 14',
-            'price' => 749,
-            'category_id' => 1,
-        ],
-        [
-            'id' => 3,
-            'name' => 'MacBook Pro',
-            'price' => 1869,
-            'category_id' => 2,
-        ],
-        [
-            'id' => 4,
-            'name' => 'Pomme',
-            'price' => 0.49,
-            'category_id' => 3,
-        ],
+    protected $casts = [
+        'tags_id' => 'array'
     ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }
