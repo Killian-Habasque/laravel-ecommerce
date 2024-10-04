@@ -1,19 +1,19 @@
 <div>
-    <h2 class="text-lg mb-4">Filtrer par prix</h2>
-    <div class="flex mb-4">
+    <h2 class="text-sm flex text-gray-500 py-4">Filtrer par prix</h2>
+    <div class="flex">
         <input type="number" wire:model="minPrice" placeholder="Prix min" class="border rounded px-2 py-1">
         <span class="mx-2">à</span>
         <input type="number" wire:model="maxPrice" placeholder="Prix max" class="border rounded px-2 py-1">
         <button type="button" wire:click="filterProducts" class="ml-2 bg-blue-500 text-white rounded px-2">Filtrer</button>
     </div>
 
-    <h2 class="text-lg mb-4">Rechercher un produit</h2>
+    <h2 class="text-sm flex text-gray-500 py-4">Rechercher un produit</h2>
     <div class="flex mb-4">
         <input type="text" wire:model.defer="searchTerm" placeholder="Rechercher..." class="border rounded px-2 py-1">
         <button type="button" wire:click="filterProducts" class="ml-2 bg-blue-500 text-white rounded px-2">Rechercher</button>
     </div>
 
-    <ul class="grid grid-cols-4 gap-8">
+    <ul class="grid grid-cols-4 gap-8 pt-8">
         @foreach ($products as $product)
         <li class="flex flex-col justify-between space-y-6 bg-white rounded-lg shadow p-4 transition-all duration-300 transform hover:scale-105">
             <div class="space-y-2">

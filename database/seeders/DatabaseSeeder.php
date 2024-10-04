@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->word(),
                 'slug' => $faker->slug(),
                 'price' => $faker->randomFloat(2, 1, 1000),
-                'image' => $faker->imageUrl(300, 200),
+                'image' => $faker->imageUrl(600, 400),
                 'category_id' => $faker->numberBetween(1, 5),
             ]);
             $product->tags()->attach($faker->randomElements($tags, rand(1, 3)));

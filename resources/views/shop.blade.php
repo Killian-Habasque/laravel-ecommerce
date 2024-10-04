@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Lorem shop</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -14,7 +14,7 @@
     <div class="border-b border-slate-200">
         <div class="container mx-auto">
             <div class="flex justify-between p-4">
-                <div>Ma boutique</div>
+                <div>Lorem shop</div>
                 <livewire:cart />
             </div>
         </div>
