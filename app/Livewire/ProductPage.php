@@ -8,13 +8,18 @@ use App\Models\Product;
 class ProductPage extends Component
 {
     public $product;
+    public $similarProducts;
 
     public function mount($slug)
     {
-
         $this->product = Product::where('slug', $slug)->firstOrFail();
+
+        $this->similarProducts = Product::where('category_id', $this->product->category_id)
+        ->where('id', '!=', $this->product->id)  
+        ->take(3)
+        ->get();
     }
-    
+
     public function increment($id)
     {
         $cart = session('cart', []);
@@ -53,6 +58,7 @@ class ProductPage extends Component
     {
         return view('livewire.product-page', [
             'product' => $this->product,
+            'similarProducts' => $this->similarProducts,
         ]);
     }
 }

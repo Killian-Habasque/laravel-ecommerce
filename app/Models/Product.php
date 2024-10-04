@@ -7,7 +7,7 @@ use Sushi\Sushi;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'slug', 'price', 'image', 'category_id'];
+    protected $fillable = ['name', 'slug', 'price', 'image', 'desription', 'category_id'];
 
     protected $casts = [
         'tags_id' => 'array'

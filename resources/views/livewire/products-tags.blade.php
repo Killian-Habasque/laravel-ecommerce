@@ -1,6 +1,9 @@
 <div class="py-4 px-6">
     <div class="mt-4">
-        <h2 class="block text-sm py-4 text-gray-800 font-bold">Tags</h2>
+        <h2 class="block text-sm py-4 text-gray-800 font-bold flex items-center gap-2">
+            <x-icons :type="'tags'" />
+            Tags
+        </h2>
 
         @foreach($tags as $tag)
         <label class="flex items-center py-2">
