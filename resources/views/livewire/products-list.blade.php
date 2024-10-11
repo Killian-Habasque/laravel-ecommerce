@@ -13,7 +13,7 @@
         <button type="button" wire:click="filterProducts" class="ml-2 bg-blue-500 text-white rounded px-2">Rechercher</button>
     </div>
 
-    <ul class="grid grid-cols-4 gap-8 pt-8">
+    <ul data-testid="products-list" class="grid grid-cols-4 gap-8 pt-8">
         @if ($products->isEmpty())
         <li class="flex flex-col justify-center items-center col-span-4 bg-gray-100 rounded-lg p-4">
             <p class="text-sm flex gap-2 text-gray-500">
